@@ -27,6 +27,9 @@ class turtle:
     # Turtles age 1 step for each model tick
     def grow_age(self):
         self.age += 1
+    
+    def give_ubi(self, ubi):
+        self.wealth += ubi
 
     def print_wealth(self):
         print("Turtle wealth is ", self.wealth)
@@ -40,11 +43,12 @@ class turtle_scape(turtle):
 
     def __init__(self, turtles=[], turtle_wealth=[], wealth=0, metab=1,
                  vision=1, numturtle=1, age=0, maxage=10, birth=1,
-                 maxruns=500):
+                 maxruns=500, ubi=100):
         self.turtles = []
         self.turtle_wealth = []
         self.birth = birth
         self.maxruns = maxruns
+        self.ubi = ubi
         for t in range(numturtle):
             t = turtle(wealth, metab, vision, age, maxage)
             self.turtles.append(t)
@@ -57,6 +61,7 @@ class turtle_scape(turtle):
         for t in self.turtles:
             t.eat()
             t.grow_age()
+            t.give_ubi(self.ubi)
             if (t.wealth > 0) and (t.age < t.maxage):
                 survivors.append(t)
         for t in range(self.birth):
@@ -117,6 +122,8 @@ def user_input():
     global u_maxruns
     # Number of model runs in the simulation.
     global u_simulation
+    # UBI given to the turtle
+    global u_ubi
     # Input statements
     try:
         min_wealth = int(input("Enter minimum initial wealth: "))
@@ -281,6 +288,20 @@ def user_input():
     except ValueError:
             print("You need to inter the value as an integer. Try again.")
             main()
+    try:
+        u_ubi = int(input("Enter the UBI: "))
+        if u_ubi < 0:
+            raise NegativeNumError("U_ubi must be at least 0.")
+            main()
+        else:
+            pass
+    except IndexError:
+            print("You need to enter in a value. Try again.")
+            main()
+    except ValueError:
+            print("You need to inter the value as an integer. Try again.")
+            main()
+
 
 
 class RangeError(Exception):
@@ -315,7 +336,8 @@ def main():
                              numturtle=u_numturtle,
                              maxage=u_maxage,
                              birth=u_birth,
-                             maxruns=u_maxruns)
+                             maxruns=u_maxruns,
+                             ubi=u_ubi)
     # Runs the simulation for u_simulation number of times
     for s in range(u_simulation):
         turtworld.model()
