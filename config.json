@@ -1,0 +1,15 @@
+{
+    "min_wealth": 0,
+    "max_wealth": 100,
+    "min_metabolism": 0,
+    "max_metabolism": 5,
+    "min_vision": 0.5,
+    "max_vision": 1.5,
+    "num_agent": 100,
+    "max_age": 50,
+    "birth": 1,
+    "birthing_wealth": 50,
+    "max_runs": 40,
+    "simulation": 1,
+    "ubi": 1
+}
